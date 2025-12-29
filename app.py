@@ -14,12 +14,39 @@ with col_logo:
     st.image("College Logo.png", width=120) 
 
 with col_text:
+    # --- UI BRANDING SECTION ---
+    # We use a container to wrap everything for better mobile centering
     st.markdown("""
-        <div style='line-height: 1.2; text-align: center;'>
-            <h2 style='color: #cc299b; margin-bottom: 0; white-space: nowrap;'>Mastwaar College Of Sciences</h2>
-            <p style='color: #6B7280; font-size: 0.9em; margin-top: 2px;'>Makhdoom Pur Sharif, Chakwal</p>
+        <style>
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .college-title {
+            color: #cc299b;
+            margin-bottom: 0;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+        /* Responsive font size: larger on PC, slightly smaller on mobile */
+        @media (max-width: 600px) {
+            .college-title { font-size: 1.5rem; }
+        }
+        @media (min-width: 601px) {
+            .college-title { font-size: 2rem; }
+        }
+        </style>
+        
+        <div class="header-container">
+            <img src="https://raw.githubusercontent.com/Taimoor-Raza-Asif/result-portal/main/College%20Logo.png" width="120">
+            <h2 class="college-title">Mastwaar College Of Sciences</h2>
+            <p style='color: #6B7280; font-size: 0.9em; margin-top: 2px; margin-bottom: 0;'>Makhdoom Pur Sharif, Chakwal</p>
             <h3 style='color: #4B5563; margin-top: 5px;'>Student Result Portal</h3>
         </div>
+        <div style='border-bottom: 2px solid #cc299b; margin-bottom: 20px;'></div>
     """, unsafe_allow_html=True)
 
 st.markdown("<div style='border-bottom: 2px solid #cc299b; margin-bottom: 20px;'></div>", unsafe_allow_html=True)
