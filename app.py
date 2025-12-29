@@ -5,7 +5,7 @@ from googleapiclient.http import MediaIoBaseDownload
 import io
 
 # 1. Page Configuration (Title and Layout)
-st.set_page_config(page_title="Jamia Tul Mastwaar - Result Portal", page_icon="🎓", layout="centered")
+st.set_page_config(page_title="Jamia Tul Mastwaar - Result Portal", page_icon="Jamia Logo.png", layout="centered")
 
 # --- UI BRANDING SECTION ---
 # Add your logo and Institute Name
