@@ -8,16 +8,15 @@ import io
 st.set_page_config(page_title="Mastwaar College Of Sciences - Result Portal", page_icon="College Logo.png", layout="centered")
 
 # --- UI BRANDING SECTION ---
-# Add your logo and Institute Name
-col_space_l, col_logo, col_text, col_space_r = st.columns([1, 1, 3, 1], vertical_alignment="center")
+# Adjusting ratios to keep content centered on the page
+col_space_l, col_logo, col_text, col_space_r = st.columns([0.5, 1, 4, 0.5], vertical_alignment="center")
 
 with col_logo:
-    # Ensure "College Logo.png" is uploaded to your GitHub repo
-    st.image("College Logo.png", width=150) 
+    st.image("College Logo.png", width=120) 
 
 with col_text:
     st.markdown("""
-        <div style='line-height: 1;'>
+        <div style='line-height: 1.2; text-align: center;'>
             <h2 style='color: #cc299b; margin-bottom: 0;'>Mastwaar College Of Sciences</h2>
             <h3 style='color: #4B5563; margin-top: 5px;'>Student Result Portal</h3>
         </div>
