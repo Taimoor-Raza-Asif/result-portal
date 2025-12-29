@@ -13,12 +13,12 @@ col_space_l, col_logo, col_text, col_space_r = st.columns([1, 1, 3, 1], vertical
 
 with col_logo:
     # Ensure "College Logo.png" is uploaded to your GitHub repo
-    st.image("College Logo.png", width=100) 
+    st.image("College Logo.png", width=150) 
 
 with col_text:
     st.markdown("""
         <div style='line-height: 1;'>
-            <h1 style='color: #cc299b; margin-bottom: 0;'>Mastwaar College Of Sciences</h1>
+            <h2 style='color: #cc299b; margin-bottom: 0;'>Mastwaar College Of Sciences</h2>
             <h3 style='color: #4B5563; margin-top: 5px;'>Student Result Portal</h3>
         </div>
     """, unsafe_allow_html=True)
