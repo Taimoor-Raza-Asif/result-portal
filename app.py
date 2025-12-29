@@ -11,7 +11,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- UI BRANDING SECTION (FIXED COLOR & SIDE-BY-SIDE LAYOUT) ---
+# --- UI BRANDING SECTION (FIXED HIERARCHY & CENTERED ADDRESS) ---
 st.markdown(f"""
     <style>
     .header-wrapper {{
@@ -32,28 +32,52 @@ st.markdown(f"""
         text-align: left;
     }}
     .college-title {{
-        color: #cc299b !important; /* Forced Branding Color */
+        color: #cc299b !important;
         margin: 0;
         font-weight: bold;
         line-height: 1.1;
     }}
     .address-text {{
         color: #6B7280;
-        margin: 2px 0 0 0;
+        margin: 4px 0 0 0;
         font-weight: normal;
     }}
-    
-    /* Responsive sizing to keep them side-by-side on mobile */
-    @media (max-width: 600px) {{
-        .header-wrapper {{ gap: 10px; }}
-        .logo-img {{ width: 60px; }}
-        .college-title {{ font-size: 1.2rem !important; }}
-        .address-text {{ font-size: 0.7rem; }}
+    .portal-subtitle {{
+        color: #4B5563;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: bold;
     }}
+    
+    /* Responsive sizing for Mobile */
+    @media (max-width: 600px) {{
+        .header-wrapper {{ 
+            gap: 10px; 
+        }}
+        .logo-img {{ width: 55px; }}
+        .text-container {{
+            text-align: center; /* Center text on mobile for better balance */
+        }}
+        .college-title {{ 
+            font-size: 1.25rem !important; 
+        }}
+        .address-text {{ 
+            font-size: 0.75rem;
+            text-align: center;
+            width: 100%;
+        }}
+        .portal-subtitle {{ 
+            font-size: 1.1rem !important; /* Reduced size so it's smaller than college name */
+        }}
+    }}
+    
+    /* Desktop sizing */
     @media (min-width: 601px) {{
         .logo-img {{ width: 100px; }}
         .college-title {{ font-size: 2.2rem !important; }}
         .address-text {{ font-size: 0.95rem; }}
+        .portal-subtitle {{ font-size: 1.75rem; }}
     }}
     </style>
     
@@ -65,9 +89,7 @@ st.markdown(f"""
         </div>
     </div>
     
-    <div style="text-align: center;">
-        <h3 style='color: #4B5563; margin-top: 10px; margin-bottom: 15px;'>Student Result Portal</h3>
-    </div>
+    <h3 class="portal-subtitle">Student Result Portal</h3>
     
     <div style='border-bottom: 3px solid #cc299b; margin-bottom: 30px; width: 100%;'></div>
 """, unsafe_allow_html=True)
