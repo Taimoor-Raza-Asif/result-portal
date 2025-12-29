@@ -11,40 +11,64 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- UI BRANDING SECTION (FIXED & RESPONSIVE) ---
-# This single block replaces all previous header/logo code to prevent duplicates
+# --- UI BRANDING SECTION (FIXED COLOR & SIDE-BY-SIDE LAYOUT) ---
 st.markdown(f"""
     <style>
-    .header-container {{
+    .header-wrapper {{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
+        justify-content: center;
+        gap: 15px;
         width: 100%;
         margin-bottom: 10px;
     }}
-    .college-title {{
-        color: #cc299b; /* Original Branding Color Restored */
-        margin-top: 15px;
-        margin-bottom: 0px;
-        font-weight: bold;
-        line-height: 1.2;
+    .logo-img {{
+        flex-shrink: 0;
     }}
-    /* Responsive font sizing for title */
+    .text-container {{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }}
+    .college-title {{
+        color: #cc299b !important; /* Forced Branding Color */
+        margin: 0;
+        font-weight: bold;
+        line-height: 1.1;
+    }}
+    .address-text {{
+        color: #6B7280;
+        margin: 2px 0 0 0;
+        font-weight: normal;
+    }}
+    
+    /* Responsive sizing to keep them side-by-side on mobile */
     @media (max-width: 600px) {{
-        .college-title {{ font-size: 1.6rem; }}
+        .header-wrapper {{ gap: 10px; }}
+        .logo-img {{ width: 60px; }}
+        .college-title {{ font-size: 1.2rem !important; }}
+        .address-text {{ font-size: 0.7rem; }}
     }}
     @media (min-width: 601px) {{
-        .college-title {{ font-size: 2.2rem; }}
+        .logo-img {{ width: 100px; }}
+        .college-title {{ font-size: 2.2rem !important; }}
+        .address-text {{ font-size: 0.95rem; }}
     }}
     </style>
     
-    <div class="header-container">
-        <img src="https://raw.githubusercontent.com/Taimoor-Raza-Asif/result-portal/main/College%20Logo.png" width="130">
-        <h1 class="college-title">Mastwaar College Of Sciences</h1>
-        <p style='color: #6B7280; font-size: 0.95rem; margin-top: 5px; margin-bottom: 0;'>Makhdoom Pur Sharif, Chakwal</p>
-        <h3 style='color: #4B5563; margin-top: 10px; margin-bottom: 20px;'>Student Result Portal</h3>
+    <div class="header-wrapper">
+        <img class="logo-img" src="https://raw.githubusercontent.com/Taimoor-Raza-Asif/result-portal/main/College%20Logo.png">
+        <div class="text-container">
+            <h1 class="college-title">Mastwaar College Of Sciences</h1>
+            <p class="address-text">Makhdoom Pur Sharif, Chakwal</p>
+        </div>
     </div>
+    
+    <div style="text-align: center;">
+        <h3 style='color: #4B5563; margin-top: 10px; margin-bottom: 15px;'>Student Result Portal</h3>
+    </div>
+    
     <div style='border-bottom: 3px solid #cc299b; margin-bottom: 30px; width: 100%;'></div>
 """, unsafe_allow_html=True)
 
@@ -75,10 +99,7 @@ with st.container():
 # 4. Search and Download Logic
 if submit:
     if name and f_name:
-        # Construct the target filename (stripping extra spaces)
         target_name = f"{{name.strip()}}_{{f_name.strip()}}_{{class_num}}.pdf"
-        
-        # Search query for Google Drive
         query = f"name = '{{target_name}}' and '{{DRIVE_FOLDER_ID}}' in parents and trashed = false"
         
         try:
@@ -89,8 +110,6 @@ if submit:
                 st.warning(f"No result found for '{{target_name}}'. Please check your spelling.")
             else:
                 file_id = items[0]['id']
-                
-                # Fetching the file
                 request = service.files().get_media(fileId=file_id)
                 file_stream = io.BytesIO()
                 downloader = MediaIoBaseDownload(file_stream, request)
@@ -100,8 +119,6 @@ if submit:
                     status, done = downloader.next_chunk()
 
                 st.success(f"Result for {{name}} (Class {{class_num}}) found!")
-                
-                # Download Button
                 st.download_button(
                     label="📥 Download Result PDF",
                     data=file_stream.getvalue(),
