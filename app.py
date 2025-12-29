@@ -4,11 +4,23 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 import io
 
-# 1. Page Configuration (Title and Layout)
+# 1. Page Configuration
 st.set_page_config(page_title="Mastwaar College Of Sciences - Result Portal", page_icon="College Logo.png", layout="centered")
 
+# --- SIDEBAR: ADMINISTRATION DETAILS ---
+with st.sidebar:
+    st.markdown(f"""
+        <div style="text-align: center; padding: 10px;">
+            <h2 style="color: #cc299b;">Administration</h2>
+            <hr style="border: 1px solid #cc299b;">
+            <p><b>Principal</b><br>Dr. Kashif Mehmood Khakvi</p>
+            <p><b>Contact</b><br>03348724125</p>
+        </div>
+    """, unsafe_allow_html=True)
+    st.divider()
+    st.info("Technical issues with results? Contact Mujtaba Asif Raja: 03195000255")
+
 # --- UI BRANDING SECTION ---
-# Adjusting ratios to keep content centered on the page
 col_space_l, col_logo, col_text, col_space_r = st.columns([0.5, 1, 4, 0.5], vertical_alignment="center")
 
 with col_logo:
@@ -18,13 +30,12 @@ with col_text:
     st.markdown("""
         <div style='line-height: 1.2; text-align: center;'>
             <h2 style='color: #cc299b; margin-bottom: 0;'>Mastwaar College Of Sciences</h2>
+            <p style='color: #6B7280; font-size: 0.9em; margin-top: 2px;'>Makhdoom Pur Sharif, Chakwal</p>
             <h3 style='color: #4B5563; margin-top: 5px;'>Student Result Portal</h3>
         </div>
     """, unsafe_allow_html=True)
 
 st.markdown("<div style='border-bottom: 2px solid #cc299b; margin-bottom: 20px;'></div>", unsafe_allow_html=True)
-
-st.write("") # Add some spacing
 
 # 2. Secure Credentials Loading
 if "google_auth" in st.secrets:
@@ -84,6 +95,14 @@ if submit:
     else:
         st.error("Please fill in both Name and Father's Name fields.")
 
-# 5. Footer
+# 5. Help Expander (Modern way to handle support)
+with st.expander("Need help or found an error?"):
+    st.write(f"""
+        For result queries, contact the administration via the sidebar. 
+        For technical portal issues, please contact:
+        **Mujtaba Asif Raja**: 03195000255
+    """)
+
+# 6. Footer
 st.markdown("---")
 st.caption("© 2025 Mastwaar College Of Sciences | System Developed by Taimoor Raza Asif")
