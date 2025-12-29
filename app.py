@@ -7,19 +7,6 @@ import io
 # 1. Page Configuration
 st.set_page_config(page_title="Mastwaar College Of Sciences - Result Portal", page_icon="College Logo.png", layout="centered")
 
-# --- SIDEBAR: ADMINISTRATION DETAILS ---
-with st.sidebar:
-    st.markdown(f"""
-        <div style="text-align: center; padding: 10px;">
-            <h2 style="color: #cc299b;">Administration</h2>
-            <hr style="border: 1px solid #cc299b;">
-            <p><b>Principal</b><br>Dr. Kashif Mehmood Khakvi</p>
-            <p><b>Contact</b><br>03348724125</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.divider()
-    st.info("Technical issues with results? Contact Mujtaba Asif Raja: 03195000255")
-
 # --- UI BRANDING SECTION ---
 col_space_l, col_logo, col_text, col_space_r = st.columns([0.5, 1, 4, 0.5], vertical_alignment="center")
 
@@ -29,7 +16,7 @@ with col_logo:
 with col_text:
     st.markdown("""
         <div style='line-height: 1.2; text-align: center;'>
-            <h2 style='color: #cc299b; margin-bottom: 0;'>Mastwaar College Of Sciences</h2>
+            <h2 style='color: #cc299b; margin-bottom: 0; white-space: nowrap;'>Mastwaar College Of Sciences</h2>
             <p style='color: #6B7280; font-size: 0.9em; margin-top: 2px;'>Makhdoom Pur Sharif, Chakwal</p>
             <h3 style='color: #4B5563; margin-top: 5px;'>Student Result Portal</h3>
         </div>
@@ -95,13 +82,27 @@ if submit:
     else:
         st.error("Please fill in both Name and Father's Name fields.")
 
-# 5. Help Expander (Modern way to handle support)
-with st.expander("Need help or found an error?"):
-    st.write(f"""
-        For result queries, contact the administration via the sidebar. 
-        For technical portal issues, please contact:
-        **Mujtaba Asif Raja**: 03195000255
-    """)
+# --- 5. CONTACT & ADMINISTRATION SECTION (GRID VIEW) ---
+st.markdown("<br><br>", unsafe_allow_html=True) # Adding space before the info section
+col_admin, col_tech = st.columns(2)
+
+with col_admin:
+    st.markdown("""
+        <div style="background-color: #f9fafb; padding: 20px; border-radius: 10px; border-left: 5px solid #cc299b; min-height: 200px;">
+            <h4 style="color: #cc299b; margin-top: 0;">🏛️ Administration</h4>
+            <p style="margin-bottom: 5px;"><b>Principal:</b><br>Dr. Kashif Mehmood Khakvi</p>
+            <p><b>Contact:</b><br><a href='tel:03348724125' style='color: #4B5563; text-decoration: none;'>03348724125</a></p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_tech:
+    st.markdown("""
+        <div style="background-color: #f9fafb; padding: 20px; border-radius: 10px; border-left: 5px solid #10b981; min-height: 200px;">
+            <h4 style="color: #10b981; margin-top: 0;">🛠️ Technical Support</h4>
+            <p style="margin-bottom: 5px;">For portal issues or errors, contact:</p>
+            <p><b>Mujtaba Asif Raja:</b><br><a href='tel:03195000255' style='color: #4B5563; text-decoration: none;'>03195000255</a></p>
+        </div>
+    """, unsafe_allow_html=True)
 
 # 6. Footer
 st.markdown("---")
