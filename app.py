@@ -57,7 +57,7 @@ st.markdown(f"""
         }}
         .logo-img {{ width: 55px; }}
         .text-container {{
-            text-align: center; /* Center text on mobile for better balance */
+            text-align: center;
         }}
         .college-title {{ 
             font-size: 1.25rem !important; 
@@ -68,7 +68,7 @@ st.markdown(f"""
             width: 100%;
         }}
         .portal-subtitle {{ 
-            font-size: 1.1rem !important; /* Reduced size so it's smaller than college name */
+            font-size: 1.1rem !important;
         }}
     }}
     
@@ -102,7 +102,7 @@ if "google_auth" in st.secrets:
         DRIVE_FOLDER_ID = st.secrets["FOLDER_ID"]
         service = build('drive', 'v3', credentials=credentials)
     except Exception as e:
-        st.error(f"Error connecting to Google Drive: {{e}}")
+        st.error(f"Error connecting to Google Drive: {e}")
         st.stop()
 else:
     st.error("Credentials not found in Streamlit Secrets.")
@@ -118,18 +118,21 @@ with st.container():
         
         submit = st.form_submit_button("🔍 Find My Result")
 
-# 4. Search and Download Logic
+# 4. Search and Download Logic (FIXED SINGLE BRACKETS)
 if submit:
     if name and f_name:
-        target_name = f"{{name.strip()}}_{{f_name.strip()}}_{{class_num}}.pdf"
-        query = f"name = '{{target_name}}' and '{{DRIVE_FOLDER_ID}}' in parents and trashed = false"
+        # Construct the target filename
+        target_name = f"{name.strip()}_{f_name.strip()}_{class_num}.pdf"
+        
+        # Search query for Google Drive
+        query = f"name = '{target_name}' and '{DRIVE_FOLDER_ID}' in parents and trashed = false"
         
         try:
             results = service.files().list(q=query, fields="files(id, name)").execute()
             items = results.get('files', [])
 
             if not items:
-                st.warning(f"No result found for '{{target_name}}'. Please check your spelling.")
+                st.warning(f"No result found for '{target_name}'. Please check your spelling.")
             else:
                 file_id = items[0]['id']
                 request = service.files().get_media(fileId=file_id)
@@ -140,7 +143,7 @@ if submit:
                 while not done:
                     status, done = downloader.next_chunk()
 
-                st.success(f"Result for {{name}} (Class {{class_num}}) found!")
+                st.success(f"Result for {name} (Class {class_num}) found!")
                 st.download_button(
                     label="📥 Download Result PDF",
                     data=file_stream.getvalue(),
@@ -148,7 +151,7 @@ if submit:
                     mime="application/pdf"
                 )
         except Exception as e:
-            st.error("An error occurred during the search. Please contact the administrator.")
+            st.error(f"An error occurred during the search: {e}")
     else:
         st.error("Please fill in both Name and Father's Name fields.")
 
